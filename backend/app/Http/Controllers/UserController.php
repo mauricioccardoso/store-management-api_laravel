@@ -6,6 +6,7 @@ use App\Helpers\Logger;
 use App\Http\Requests\StoreUserRequest;
 use App\Services\UserService;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
 
@@ -15,7 +16,7 @@ class UserController extends Controller
     {
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): JsonResponse
     {
         DB::beginTransaction();
 
