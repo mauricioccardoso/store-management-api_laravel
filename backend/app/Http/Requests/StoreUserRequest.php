@@ -32,11 +32,4 @@ class StoreUserRequest extends FormRequest
             ]
         ];
     }
-
-    // public function messages()
-    // {
-    //     return [
-    //         '*' => 'A validation error occurred. Please check the form data.',
-    //     ];
-    // }
 }
