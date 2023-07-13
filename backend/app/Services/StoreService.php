@@ -13,7 +13,7 @@ class StoreService
      */
     public function listStores(): Collection
     {
-        return Store::all();
+        return Store::withAddress()->get();
     }
 
     /**
@@ -23,7 +23,7 @@ class StoreService
     {
         $userId = Auth::id();
 
-        return Store::where('user_id', '=', $userId)->get();
+        return Store::withAddress()->where('user_id', '=', $userId)->get();
     }
 
     public function store($data): Store
@@ -36,15 +36,13 @@ class StoreService
         ]);
     }
 
-    public function update($data, $store)
+    public function update($data, $store): bool
     {
         if ($store->user_id != Auth::id()) {
             return false;
         }
 
-        $storeUpdated = $store->update($data);
-
-        return $storeUpdated;
+        return $store->update($data);
     }
 
     public function delete($store): bool
@@ -55,5 +53,10 @@ class StoreService
 
         $store->delete();
         return true;
+    }
+
+    public function findOneWithAddress($id)
+    {
+        return Store::withAddress()->find($id);
     }
 }

@@ -10,11 +10,14 @@ use App\Services\StoreService;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
 use App\Models\Store;
+use App\Services\StoreAddressService;
 
 class StoreController extends Controller
 {
-    public function __construct(protected StoreService $storeService)
-    {
+    public function __construct(
+        protected StoreService $storeService,
+        protected StoreAddressService $storeAddressService
+    ) {
     }
 
     public function listStores(): JsonResponse
@@ -49,8 +52,15 @@ class StoreController extends Controller
     {
         DB::beginTransaction();
 
+        $data = $request->all();
+
         try {
-            $store = $this->storeService->store($request->all());
+            $storeCreated = $this->storeService->store($data);
+
+            $this->storeAddressService->store($data['address'], $storeCreated['id']);
+
+            $store = $this->storeService->findOneWithAddress($storeCreated['id']);
+
             DB::commit();
 
             return response()->json($store);
@@ -68,8 +78,10 @@ class StoreController extends Controller
     {
         DB::beginTransaction();
 
+        $data = $request->all();
+
         try {
-            $storeUpdated = $this->storeService->update($request->all(), $store);
+            $storeUpdated = $this->storeService->update($data, $store);
 
             if (!$storeUpdated) {
                 DB::rollBack();
@@ -77,6 +89,10 @@ class StoreController extends Controller
                 $message = 'You do not have permission to update this store.';
                 return response()->json(["message" => $message], 403);
             }
+
+            $storeWithAddress = $this->storeService->findOneWithAddress($store['id']);
+
+            $this->storeAddressService->update($data['address'], $storeWithAddress->storeAddress['id']);
 
             DB::commit();
 

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Store extends Model
+class StoreAddress extends Model
 {
     use HasFactory;
 
@@ -15,10 +15,14 @@ class Store extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'description',
-        'cnpj',
-        'user_id',
+        'cep',
+        'number',
+        'street',
+        'complement',
+        'neighborhood',
+        'city',
+        'state',
+        'store_id',
     ];
 
     /**
@@ -27,21 +31,12 @@ class Store extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'user_id'
+        'created_at',
+        'updated_at',
     ];
 
-    public function user()
+    public function store()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function storeAddress()
-    {
-        return $this->hasOne(StoreAddress::class);
-    }
-
-    public function scopeWithAddress($query)
-    {
-        return $query->with('storeAddress');
+        return $this->belongsTo(Store::class);
     }
 }
