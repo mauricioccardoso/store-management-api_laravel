@@ -24,7 +24,12 @@ class UserController extends Controller
             $user = $this->userService->createUser($request->all());
             DB::commit();
 
-            return response()->json(["user" => $user], 201);
+            $user->sendEmailVerificationNotification();
+
+            return response()->json([
+                "user" => $user,
+                "message" => "Please check your email to confirm that this email address belongs to you."
+            ], 201);
         } catch (Exception $e) {
             DB::rollBack();
 

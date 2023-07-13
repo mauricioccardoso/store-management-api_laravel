@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailVerifyController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// User Create and Auth
 Route::post('users', [UserController::class, 'store']);
 Route::post('login', [AuthController::class, 'login']);
 
+
+// Email Verification
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/email/verify', [EmailVerifyController::class, 'notice'])->name('verification.notice');
+    Route::get('/email/resend-verification-notification', [EmailVerifyController::class, 'resend'])->name('verification.send');
+});
+
+Route::get('/email/verify/{id}', [EmailVerifyController::class, 'verify'])->name('verification.verify');
+
+
+// Store
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::get('stores', [StoreController::class, 'listStores']);
