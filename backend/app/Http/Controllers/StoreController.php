@@ -57,7 +57,7 @@ class StoreController extends Controller
         try {
             $storeCreated = $this->storeService->store($data);
 
-            $this->storeAddressService->store($data['address'], $storeCreated['id']);
+            $this->storeAddressService->store($data['store_address'], $storeCreated['id']);
 
             $store = $this->storeService->findOneWithAddress($storeCreated['id']);
 
@@ -92,7 +92,7 @@ class StoreController extends Controller
 
             $storeWithAddress = $this->storeService->findOneWithAddress($store['id']);
 
-            $this->storeAddressService->update($data['address'], $storeWithAddress->storeAddress['id']);
+            $this->storeAddressService->update($data['store_address'], $storeWithAddress->storeAddress['id']);
 
             DB::commit();
 
