@@ -37,10 +37,10 @@ class UpdateStoreRequest extends FormRequest
 
             'address.cep' => ['required', 'string', 'regex:/^\d{5}-\d{3}$/'],
             'address.number' => ['required', 'integer'],
-            'address.street' => ['required', 'string', 'min:3'],
-            'address.complement' => ['nullable', 'string', 'min:3'],
-            'address.neighborhood' => ['required', 'string', 'min:3'],
-            'address.city' => ['required', 'string', 'min:3'],
+            'address.street' => ['required', 'string', 'min:2'],
+            'address.complement' => ['nullable', 'string', 'min:2'],
+            'address.neighborhood' => ['required', 'string', 'min:2'],
+            'address.city' => ['required', 'string', 'min:2'],
             'address.state' => ['required', 'string', 'size:2'],
 
             'address' => [new ViaCEPAddress]
