@@ -23,8 +23,9 @@ services:
       - "3306:3306"
     environment:
       - MYSQL_DATABASE=agility
+      - MYSQL_ROOT_PASSWORD=mypasswordroot
       - MYSQL_USER=agilityTest
-      - MYSQL_ROOT_PASSWORD=mypassword
+      - MYSQL_PASSWORD=mypassword
     volumes:
       - ./dbData:/var/lib/mysql
     networks:
