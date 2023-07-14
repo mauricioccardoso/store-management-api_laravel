@@ -24,6 +24,8 @@ Route::post('login', [AuthController::class, 'login']);
 
 // Email Verification
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+
     Route::get('/email/verify', [EmailVerifyController::class, 'notice'])->name('verification.notice');
     Route::get('/email/resend-verification-notification', [EmailVerifyController::class, 'resend'])->name('verification.send');
 });
@@ -33,7 +35,6 @@ Route::get('/email/verify/{id}', [EmailVerifyController::class, 'verify'])->name
 
 // Store
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::post('logout', [AuthController::class, 'logout']);
 
     Route::get('stores', [StoreController::class, 'listStores']);
     Route::get('stores/my-stores', [StoreController::class, 'listUserStores']);

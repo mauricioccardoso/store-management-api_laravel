@@ -20,12 +20,25 @@
 
             text-align: center;
         }
+
+        .logo-agility {
+            margin-right: 1rem
+        }
+
+        .logo-labs {
+            width: 3rem;
+            height: 3rem;
+        }
     </style>
 </head>
 
 <body>
     <main>
-        <img src="https://www.agility.com.br/assets/images/logo-pj.svg" alt="Logo da Agility">
+        <div>
+            <img class="logo-agility" src="https://www.agility.com.br/assets/images/logo-pj.svg" alt="Logo da Agility">
+            <img class="logo-labs" src="https://avatars.githubusercontent.com/u/79149051?s=200&v=4"
+                alt="Logo da Agility Labs">
+        </div>
         <h1>Server On</h1>
     </main>
 </body>
