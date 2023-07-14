@@ -535,6 +535,8 @@ A API oferece várias rotas para interagir com os dados das Lojas. A seguir, est
 
 - As rotas de criação, edição, listagens e exclusão devem receber o token para autenticação do usuário, bem como é nescessário fazer a validação do email do usuário anteriormente.
 
+- **O projeto contém um arquivo "Insomnia_2023-07-13.json" com todas as rotas já configuradas, que pode ser importado para o aplicativo do Insomnia**.
+
 ---
 
 ## Contribuição
